@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 #removeAfterDevelopment
-src/dummyData.tsx
+src/data/fakeData.tsx
