@@ -9,7 +9,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme === "light" ? lightMode : darkMode}>
-      <Routes />;
+      <Routes />
     </ThemeProvider>
   );
 }
