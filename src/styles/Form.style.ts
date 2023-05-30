@@ -83,3 +83,21 @@ export const Error = styled.span`
   margin-top: 0.5rem;
   border: 2px solid ${(props) => props.theme.errorVariant};
 `;
+
+export const Redirect = styled.p`
+  text-align: right;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+
+  & > a {
+    color: ${(props) => props.theme.primary};
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: ${(props) => props.theme.primaryVariant};
+    }
+  }
+`;

@@ -12,10 +12,11 @@ import { Link } from "react-router-dom";
 
 type Inputs = {
   email: string;
-  password: string;
+  password1: string;
+  password2: string;
 };
 
-export default function Login() {
+export default function Signup() {
   const {
     register,
     handleSubmit,
@@ -28,7 +29,7 @@ export default function Login() {
 
   return (
     <StyledForm onSubmit={handleSubmit(handleOnSubmit)}>
-      <StyledHeading>Login</StyledHeading>
+      <StyledHeading>Signup</StyledHeading>
       <StyledLabel htmlFor="email">Email</StyledLabel>
       <StyledInput
         type="email"
@@ -36,19 +37,23 @@ export default function Login() {
         {...register("email", { required: true })}
       />
       {errors.email && <StyledError>It's required</StyledError>}
-      <StyledLabel htmlFor="password">Password</StyledLabel>
+      <StyledLabel htmlFor="password1">Password</StyledLabel>
       <StyledInput
         type="password"
         placeholder="Enter password"
-        {...register("password", { required: true })}
+        {...register("password1", { required: true })}
       />
-      {errors.password && <StyledError>It's required</StyledError>}
-      <StyledRedirect>
-        Forgot <Link to="/forgot">password?</Link>
-      </StyledRedirect>
+      {errors.password1 && <StyledError>It's required</StyledError>}
+      <StyledLabel htmlFor="password2">Confirm password</StyledLabel>
+      <StyledInput
+        type="password"
+        placeholder="Enter password"
+        {...register("password2", { required: true })}
+      />
+      {errors.password2 && <StyledError>It's required</StyledError>}
       <StyledSubmit type="submit" value="Submit" />
       <StyledRedirect>
-        Do not have an account? <Link to="/signup">Sign up</Link>
+        Already registerd <Link to="/login">log in?</Link>
       </StyledRedirect>
     </StyledForm>
   );
