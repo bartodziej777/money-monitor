@@ -19,6 +19,7 @@ export const Form = styled.form`
 
   @media only screen and (min-width: 768px) {
     width: 60%;
+    padding: 3.5rem 4.5rem;
   }
 
   @media only screen and (min-width: 1024px) {
