@@ -12,4 +12,8 @@ export default createGlobalStyle`
     html {
         font-size: 62.5%; //1rem = 10px;
     }
+
+    body {
+        background-color: ${(props) => props.theme.background}
+    }
 `;
