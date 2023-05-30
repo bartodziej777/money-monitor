@@ -1,4 +1,12 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  Form as StyledForm,
+  Heading as StyledHeading,
+  Label as StyledLabel,
+  Input as StyledInput,
+  Submit as StyledSubmit,
+  Error as StyledError,
+} from "../../styles/Form.style";
 
 type Inputs = {
   email: string;
@@ -9,7 +17,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -18,14 +25,23 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnSubmit)}>
-      <label htmlFor="email">Email</label>
-      <input type="email" {...register("email", { required: true })} />
-      {errors.email && <span>It's required</span>}
-      <label htmlFor="password">Password</label>
-      <input type="password" {...register("password", { required: true })} />
-      {errors.password && <span>It is required</span>}
-      <input type="submit" value="Submit" />
-    </form>
+    <StyledForm onSubmit={handleSubmit(handleOnSubmit)}>
+      <StyledHeading>Login</StyledHeading>
+      <StyledLabel htmlFor="email">Email</StyledLabel>
+      <StyledInput
+        type="email"
+        placeholder="Enter email"
+        {...register("email", { required: true })}
+      />
+      {errors.email && <StyledError>It's required</StyledError>}
+      <StyledLabel htmlFor="password">Password</StyledLabel>
+      <StyledInput
+        type="password"
+        placeholder="Enter password"
+        {...register("password", { required: true })}
+      />
+      {errors.password && <StyledError>It is required</StyledError>}
+      <StyledSubmit type="submit" value="Submit" />
+    </StyledForm>
   );
 }
