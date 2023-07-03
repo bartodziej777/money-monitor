@@ -15,7 +15,7 @@ type Inputs = {
   password: string;
 };
 
-export default function Login() {
+export default function Forgot() {
   const {
     register,
     handleSubmit,
@@ -28,27 +28,19 @@ export default function Login() {
 
   return (
     <StyledForm onSubmit={handleSubmit(handleOnSubmit)}>
-      <StyledHeading>Login</StyledHeading>
-      <StyledLabel htmlFor="email">Email</StyledLabel>
+      <StyledHeading>Forgot password</StyledHeading>
+      <StyledLabel htmlFor="email">
+        Reset your password via your email
+      </StyledLabel>
       <StyledInput
         type="email"
         placeholder="Enter email"
         {...register("email", { required: "It is required" })}
       />
-      {errors.email && <StyledError>{errors.email.message}</StyledError>}
-      <StyledLabel htmlFor="password">Password</StyledLabel>
-      <StyledInput
-        type="password"
-        placeholder="Enter password"
-        {...register("password", { required: "It is required" })}
-      />
       {errors.password && <StyledError>{errors.password.message}</StyledError>}
-      <StyledRedirect>
-        Forgot <Link to="/forgot">password?</Link>
-      </StyledRedirect>
       <StyledSubmit type="submit" value="Submit" />
       <StyledRedirect>
-        Do not have an account? <Link to="/signup">Sign up</Link>
+        Back to <Link to="/login">log in</Link>
       </StyledRedirect>
     </StyledForm>
   );

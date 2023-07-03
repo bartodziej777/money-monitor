@@ -9,6 +9,8 @@ import {
   Redirect as StyledRedirect,
 } from "../../styles/Form.style";
 import { Link } from "react-router-dom";
+import { AUTH } from "../../config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 type Inputs = {
   email: string;
@@ -20,11 +22,16 @@ export default function Signup() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const handleOnSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const handleOnSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      await createUserWithEmailAndPassword(AUTH, data.email, data.password1);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -34,23 +41,50 @@ export default function Signup() {
       <StyledInput
         type="email"
         placeholder="Enter email"
-        {...register("email", { required: true })}
+        {...register("email", { required: "It is required" })}
       />
-      {errors.email && <StyledError>It's required</StyledError>}
+      {errors.email && <StyledError> {errors.email.message} </StyledError>}
       <StyledLabel htmlFor="password1">Password</StyledLabel>
       <StyledInput
         type="password"
         placeholder="Enter password"
-        {...register("password1", { required: true })}
+        {...register("password1", {
+          required: "It is required",
+          minLength: {
+            value: 6,
+            message: "Password must be at least 6 characters long",
+          },
+          maxLength: {
+            value: 20,
+            message: "Password cannot be longer than 20 characters",
+          },
+        })}
       />
-      {errors.password1 && <StyledError>It's required</StyledError>}
+      {errors.password1 && (
+        <StyledError>{errors.password1.message}</StyledError>
+      )}
       <StyledLabel htmlFor="password2">Confirm password</StyledLabel>
       <StyledInput
         type="password"
         placeholder="Enter password"
-        {...register("password2", { required: true })}
+        {...register("password2", {
+          required: "It is required",
+          minLength: {
+            value: 6,
+            message: "Password must be at least 6 characters long",
+          },
+          maxLength: {
+            value: 20,
+            message: "Password cannot be longer than 20 characters",
+          },
+          validate: (value) =>
+            value === getValues("password1") ||
+            "The passwords are not the same",
+        })}
       />
-      {errors.password2 && <StyledError>It's required</StyledError>}
+      {errors.password2 && (
+        <StyledError>{errors.password2.message}</StyledError>
+      )}
       <StyledSubmit type="submit" value="Submit" />
       <StyledRedirect>
         Already registerd <Link to="/login">log in?</Link>
