@@ -12,6 +12,9 @@ export const lightMode = {
   onBackground: "#000",
   onSurface: "#000",
   onError: "#fff",
+  info: "#7bed9f",
+  infoVariant: "#2ed573",
+  onInfo: "#000",
 };
 
 export const darkMode = {
@@ -28,4 +31,7 @@ export const darkMode = {
   onBackground: "#eee",
   onSurface: "#eee",
   onError: "#000",
+  info: "#7bed9f",
+  infoVariant: "#2ed573",
+  onInfo: "#000",
 };
