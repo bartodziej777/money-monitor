@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
   Form as StyledForm,
@@ -7,8 +8,9 @@ import {
   Submit as StyledSubmit,
   Error as StyledError,
   Redirect as StyledRedirect,
+  Info as StyledInfo,
 } from "../../styles/Form.style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AUTH } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -18,7 +20,19 @@ type Inputs = {
   password2: string;
 };
 
+type StatusType = {
+  error: boolean;
+  message: string;
+};
+
 export default function Signup() {
+  const [status, setStatus] = useState<StatusType>({
+    error: false,
+    message: "",
+  });
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -29,14 +43,35 @@ export default function Signup() {
   const handleOnSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       await createUserWithEmailAndPassword(AUTH, data.email, data.password1);
+
+      setStatus({
+        error: false,
+        message: "Successful registration. You will be redirected shortly",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (err) {
-      console.error(err);
+      setStatus({
+        error: true,
+        message: "Something went wrong. Try again later",
+      });
     }
   };
 
   return (
     <StyledForm onSubmit={handleSubmit(handleOnSubmit)}>
       <StyledHeading>Signup</StyledHeading>
+      {status.message.length > 1 && status.error ? (
+        <StyledError>{status.message}</StyledError>
+      ) : (
+        ""
+      )}
+      {status.message.length > 1 && !status.error ? (
+        <StyledInfo>{status.message}</StyledInfo>
+      ) : (
+        ""
+      )}
       <StyledLabel htmlFor="email">Email</StyledLabel>
       <StyledInput
         type="email"
