@@ -53,9 +53,16 @@ export const Input = styled.input`
   outline: none;
   background-color: ${(props) => props.theme.surface};
 
+  background-color: ${(props) => props.theme.background};
+  border: 1px solid transparent;
+
   &:focus,
   &:active {
     border-color: ${(props) => props.theme.primaryVariant};
+  }
+
+  &:invalid {
+    border-color: ${(props) => props.theme.error};
   }
 `;
 
@@ -72,6 +79,10 @@ export const Submit = styled(Input)`
     border-color: ${(props) => props.theme.primaryVariant};
     background-color: ${(props) => props.theme.primaryVariant};
   }
+
+  &:disabled {
+    background-color: ${(props) => props.theme.primaryVariant};
+  }
 `;
 
 export const Error = styled.span`
@@ -84,6 +95,12 @@ export const Error = styled.span`
   border: 2px solid ${(props) => props.theme.errorVariant};
 `;
 
+export const Info = styled(Error)`
+  background-color: ${(props) => props.theme.info};
+  color: ${(props) => props.theme.onInfo};
+  border-color: ${(props) => props.theme.infoVariant};
+`;
+
 export const Redirect = styled.p`
   text-align: right;
   font-size: 1.4rem;
@@ -93,11 +110,29 @@ export const Redirect = styled.p`
     color: ${(props) => props.theme.primary};
     font-weight: 700;
     cursor: pointer;
+    text-decoration: none;
 
     &:hover,
     &:focus,
     &:active {
       color: ${(props) => props.theme.primaryVariant};
     }
+  }
+`;
+
+export const IconWithText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > svg {
+    fill: ${(props) => props.theme.primary};
+    margin: 1rem 0;
+    font-size: 5rem;
+  }
+
+  & > p {
+    font-size: 1.6rem;
+    text-align: center;
   }
 `;
