@@ -13,8 +13,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { AUTH } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/slices/userSlice";
+import { RootState } from "../../store/store";
 
 type Inputs = {
   email: string;
@@ -34,6 +35,8 @@ export default function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state);
+  console.log(user);
 
   const {
     register,

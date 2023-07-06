@@ -6,7 +6,7 @@ interface ThemesState {
 
 const initialState: ThemesState = { mode: "light" };
 
-export const themesSlice = createSlice({
+export const themeSlice = createSlice({
   name: "themes",
   initialState,
   reducers: {
@@ -17,5 +17,5 @@ export const themesSlice = createSlice({
   },
 });
 
-export const { changeTheme } = themesSlice.actions;
-export default themesSlice.reducer;
+export const { changeTheme } = themeSlice.actions;
+export default themeSlice.reducer;
