@@ -13,6 +13,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { AUTH } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slices/userSlice";
 
 type Inputs = {
   email: string;
@@ -32,6 +34,7 @@ export default function Signup() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -42,7 +45,20 @@ export default function Signup() {
 
   const handleOnSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      await createUserWithEmailAndPassword(AUTH, data.email, data.password1);
+      const { user } = await createUserWithEmailAndPassword(
+        AUTH,
+        data.email,
+        data.password1
+      );
+
+      dispatch(
+        login({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        })
+      );
 
       setStatus({
         error: false,
@@ -50,7 +66,7 @@ export default function Signup() {
       });
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     } catch (err) {
       setStatus({
         error: true,
