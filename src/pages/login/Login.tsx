@@ -13,9 +13,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { AUTH } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/slices/userSlice";
-import { RootState } from "../../store/store";
 
 type Inputs = {
   email: string;
@@ -34,9 +31,6 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { user } = useSelector((state: RootState) => state);
-  console.log(user);
 
   const {
     register,
@@ -46,19 +40,7 @@ export default function Login() {
 
   const handleOnSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const { user } = await signInWithEmailAndPassword(
-        AUTH,
-        data.email,
-        data.password
-      );
-      dispatch(
-        login({
-          email: user.email,
-          uid: user.uid,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        })
-      );
+      await signInWithEmailAndPassword(AUTH, data.email, data.password);
 
       setStatus({
         error: false,
