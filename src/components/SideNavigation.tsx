@@ -14,9 +14,19 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import "./styles/Navigation.style.css";
+import { signOut } from "firebase/auth";
+import { AUTH } from "../config/firebase";
 
 export default function SideNavigation() {
   const { user } = useSelector((state: RootState) => state);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(AUTH);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <StyledContainer>
@@ -83,7 +93,7 @@ export default function SideNavigation() {
           <span>settings</span>
         </NavLink>
       </StyledNavigation>
-      <button>Sign out</button>
+      <button onClick={handleSignOut}>Sign out</button>
       <p>budgetTracker 2023 &copy;</p>
     </StyledContainer>
   );
